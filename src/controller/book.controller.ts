@@ -1,5 +1,10 @@
 import { Request, Response } from "express";
-import { createBook, getBooks, getSingleBook } from "../service/book.service";
+import {
+  createBook,
+  deleteBook,
+  getBooks,
+  getSingleBook,
+} from "../service/book.service";
 import logger from "../utils/logger";
 import { CreateBookInput } from "../schema/book.schema";
 
@@ -29,6 +34,15 @@ export const getSingleBookHandler = async (req: Request, res: Response) => {
   try {
     const book = await getSingleBook(req.params.bookId);
     return res.status(200).send(book);
+  } catch (error: any) {
+    return res.status(404).json({ message: "Can't find book with this id." });
+  }
+};
+
+export const deleteBookHandler = async (req: Request, res: Response) => {
+  try {
+    await deleteBook(req.params.bookId);
+    return res.status(200).json({ message: "Deleted." });
   } catch (error: any) {
     return res.status(404).json({ message: "Can't find book with this id." });
   }
