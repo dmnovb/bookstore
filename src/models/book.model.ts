@@ -5,6 +5,7 @@ export interface BookDocument extends mongoose.Document {
   author: string;
   description: string;
   pages: number;
+  releaseDate: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -15,6 +16,7 @@ const bookSchema = new mongoose.Schema(
     author: { type: String, required: true },
     description: { type: String, required: true },
     pages: { type: Number, required: true },
+    releaseDate: { type: Date, required: true },
   },
   {
     timestamps: true,

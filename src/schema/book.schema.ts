@@ -1,4 +1,4 @@
-import { number, object, string, TypeOf } from "zod";
+import { date, number, object, string, TypeOf } from "zod";
 
 export const createBookSchema = object({
   body: object({
@@ -13,6 +13,9 @@ export const createBookSchema = object({
     }),
     pages: number({
       required_error: "Pages are required.",
+    }),
+    releaseDate: string({
+      required_error: "Date is required.",
     }),
   }),
 });
