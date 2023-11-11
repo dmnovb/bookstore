@@ -15,3 +15,7 @@ export const getBooks = async () => {
 export const getSingleBook = async (book: any) => {
   return Book.findById(book);
 };
+
+export const deleteBook = async (book: any) => {
+  return Book.findByIdAndDelete(book);
+};
