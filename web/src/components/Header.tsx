@@ -11,6 +11,14 @@ import {
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { cn } from "@/lib/utils";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
 
 const products = [
   {
@@ -45,9 +53,7 @@ const products = [
   },
 ];
 
-const Header = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+export const Header = () => {
   return (
     <header>
       <nav
@@ -56,19 +62,49 @@ const Header = () => {
       >
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
             <h1 className="font-bold">The Library</h1>
           </a>
         </div>
         <div className="flex lg:hidden">
-          <button
-            type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 "
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <span className="sr-only">Open main menu</span>
-            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-          </button>
+          <Sheet>
+            <SheetTrigger>
+              <button
+                type="button"
+                className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 "
+              >
+                <span className="sr-only">Open main menu</span>
+                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+              </button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>Are you sure absolutely sure?</SheetTitle>
+                <SheetDescription>
+                  <div className="p-4 ">
+                    {products.map((item) => (
+                      <div
+                        key={item.name}
+                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 "
+                      >
+                        <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg  ">
+                          <item.icon
+                            className="h-6 w-6  group-hover:text-primary"
+                            aria-hidden="true"
+                          />
+                        </div>
+                        <div className="flex-auto">
+                          <a href={item.href} className="block font-semibold ">
+                            {item.name}
+                            <span className="absolute inset-0" />
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </SheetDescription>
+              </SheetHeader>
+            </SheetContent>
+          </Sheet>
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
           <Popover className="relative">
@@ -89,7 +125,7 @@ const Header = () => {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl  shadow-lg ring-1 ring-gray-900/5">
+              <Popover.Panel className=" bg-card products-page absolute -left-8 z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl  shadow-lg ring-1 ring-gray-900/5">
                 <div className="p-4">
                   {products.map((item) => (
                     <div
@@ -98,7 +134,7 @@ const Header = () => {
                     >
                       <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg  ">
                         <item.icon
-                          className="h-6 w-6  group-hover:text-orange-600"
+                          className="h-6 w-6  group-hover:text-primary"
                           aria-hidden="true"
                         />
                       </div>
@@ -130,7 +166,7 @@ const Header = () => {
           </a>
         </div>
       </nav>
-      <Dialog
+      {/* <Dialog
         as="div"
         className="lg:hidden"
         open={mobileMenuOpen}
@@ -217,9 +253,7 @@ const Header = () => {
             </div>
           </div>
         </Dialog.Panel>
-      </Dialog>
+      </Dialog> */}
     </header>
   );
 };
-
-export default Header;
