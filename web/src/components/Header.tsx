@@ -45,7 +45,7 @@ const products = [
   },
 ];
 
-const Header = () => {
+export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -221,5 +221,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;

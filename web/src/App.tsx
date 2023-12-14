@@ -1,9 +1,11 @@
-import Header from "./components/Header";
-
+import { Library, Header, MaxWidthWrapper } from "./components";
 function App() {
   return (
     <>
       <Header />
+      <MaxWidthWrapper>
+        <Library />
+      </MaxWidthWrapper>
     </>
   );
 }
