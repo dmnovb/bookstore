@@ -1,9 +1,10 @@
-import { Library, Header, MaxWidthWrapper } from "./components";
+import { Library, Header, MaxWidthWrapper, Hero } from "./components";
 function App() {
   return (
     <>
       <Header />
       <MaxWidthWrapper>
+        <Hero />
         <Library />
       </MaxWidthWrapper>
     </>

@@ -3,5 +3,5 @@ export type Book = {
   author: string;
   description: string;
   pages: number;
-  releaseDate: Date;
+  releaseDate: string;
 };

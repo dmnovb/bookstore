@@ -56,8 +56,7 @@ export const Header = () => {
       >
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <h1 className="font-bold">The Library</h1>
+            <h1 className="font-bold">The Bookstore</h1>
           </a>
         </div>
         <div className="flex lg:hidden">
@@ -89,7 +88,7 @@ export const Header = () => {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl  shadow-lg ring-1 ring-gray-900/5">
+              <Popover.Panel className="absolute bg-white -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl  shadow-lg ring-1 ring-gray-900/5">
                 <div className="p-4">
                   {products.map((item) => (
                     <div
@@ -107,7 +106,7 @@ export const Header = () => {
                           {item.name}
                           <span className="absolute inset-0" />
                         </a>
-                        <p className="mt-1 text-zinc-400">{item.description}</p>
+                        <p className="mt-1 text-zinc-900">{item.description}</p>
                       </div>
                     </div>
                   ))}
