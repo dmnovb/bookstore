@@ -5,10 +5,11 @@ import {
   getBooksHandler,
   getSingleBookHandler,
 } from "./controller/book.controller";
-import { login, register } from "./controller/authentication";
 import {
   getAllUsersHandler,
   getSingleUserHandler,
+  login,
+  register,
 } from "./controller/user.controller";
 import { isAuthenticated } from "./middleware/isAuthenticated";
 import { validate } from "./middleware/validateResource";
