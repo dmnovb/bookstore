@@ -5,5 +5,5 @@ export const getUserByEmail = (email: string) => {
 };
 
 export const createUser = (values: Record<string, any>) => {
-  User.create(values);
+  new User(values);
 };
