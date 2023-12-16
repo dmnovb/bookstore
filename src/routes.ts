@@ -7,12 +7,14 @@ import {
   getBooksHandler,
   getSingleBookHandler,
 } from "./controller/book.controller";
+import { register } from "./controller/authentication";
 
 const routes = (app: Express) => {
   app.post("/books", validateResource(createBookSchema), createBookHandler);
   app.get("/books", getBooksHandler);
   app.get("/books/:bookId", getSingleBookHandler);
   app.delete("/books/:bookId", deleteBookHandler);
+  app.post("/auth/register", register);
 };
 
 export default routes;
