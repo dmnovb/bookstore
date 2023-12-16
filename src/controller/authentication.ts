@@ -7,7 +7,6 @@ export const login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      console.log("no email or pass");
       return res.sendStatus(400);
     }
 
@@ -16,8 +15,9 @@ export const login = async (req: Request, res: Response) => {
     );
 
     if (!user) {
-      console.log("no user");
-      return res.sendStatus(400);
+      return res
+        .status(400)
+        .json({ message: "No user with these credentials exists." });
     }
 
     const expectedHashedPassword = authentication(
@@ -35,13 +35,13 @@ export const login = async (req: Request, res: Response) => {
       user._id.toString()
     );
 
-    // await user.save();
+    await user.save();
 
     res.cookie("BOOKSTORE_COOKIE", user.authentication.sessionToken);
 
     return res.status(200).json(user);
   } catch (error: unknown) {
-    return res.sendStatus(400).json({ message: error });
+    return res.status(400).json({ message: error });
   }
 };
 
@@ -49,7 +49,10 @@ export const register = async (req: Request, res: Response) => {
   try {
     const { email, password, username } = req.body;
 
-    if (!email || !password || !username) return res.sendStatus(400);
+    if (!email || !password || !username)
+      return res
+        .sendStatus(400)
+        .json({ message: "No user with these credentials exists." });
 
     const existingUser = await getUserByEmail(email);
 
@@ -59,7 +62,7 @@ export const register = async (req: Request, res: Response) => {
       });
 
     const salt = random();
-    const user = createUser({
+    const user = await createUser({
       email,
       password,
       username,
@@ -68,8 +71,9 @@ export const register = async (req: Request, res: Response) => {
         password: authentication(salt, password),
       },
     });
-    return res.sendStatus(200).json(user).end();
-  } catch (error) {
-    console.log(error);
+    console.log(user);
+    return res.status(200).send(user);
+  } catch (error: any) {
+    return res.status(400).json({ message: error.message });
   }
 };

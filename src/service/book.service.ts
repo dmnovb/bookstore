@@ -8,14 +8,14 @@ export const createBook = async (input: any) => {
   }
 };
 
-export const getBooks = async () => {
+export const getBooks = () => {
   return Book.find();
 };
 
-export const getSingleBook = async (book: any) => {
+export const getSingleBook = (book: any) => {
   return Book.findById(book);
 };
 
-export const deleteBook = async (book: any) => {
+export const deleteBook = (book: any) => {
   return Book.findByIdAndDelete(book);
 };
