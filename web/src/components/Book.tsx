@@ -18,7 +18,7 @@ type BookProps = {
 export const Book = ({ book }: BookProps) => {
   return (
     <div>
-      <Card className="p-5 max-h-screen h-[250px] w-[360px] text-center">
+      <Card className="p-5 max-h-screen h-[250px] w-[360px]">
         <CardHeader>
           <CardTitle>{truncate(book.name, { length: 100 })}</CardTitle>
           <CardDescription>

@@ -1,6 +1,5 @@
 import type { Book as BookType } from "types/book";
 import { Book } from ".";
-import styled from "styled-components";
 
 type BooksProps = {
   books: BookType[];

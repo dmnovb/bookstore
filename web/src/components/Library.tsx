@@ -34,13 +34,19 @@ export const Library = memo(() => {
   }
 
   if (error) {
-    <div>
-      <ErrorWrapper>Error: {error}</ErrorWrapper>;
-    </div>;
+    return (
+      <div>
+        <ErrorWrapper>Error: {error}</ErrorWrapper>;
+      </div>
+    );
   }
 
+  if (!books) {
+    return <div>Hmm.. nothing to see here.</div>;
+  }
   return (
-    <div>
+    <div className="mb-12 box-border">
+      <h1 className="font-bold text-2xl p-3 underline">Bookshelf</h1>
       <Books books={books} />
     </div>
   );
