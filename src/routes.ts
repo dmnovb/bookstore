@@ -18,7 +18,7 @@ import { createBookSchema } from "./schema/book.schema";
 const routes = (app: Express) => {
   //books
   app.post("/books", validate(createBookSchema), createBookHandler);
-  app.get("/books", getBooksHandler);
+  app.get("/books", isAuthenticated, getBooksHandler);
   app.get("/books/:bookId", getSingleBookHandler);
   app.delete("/books/:bookId", deleteBookHandler);
   //users

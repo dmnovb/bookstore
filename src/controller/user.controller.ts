@@ -95,7 +95,7 @@ export const getSingleUserHandler = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const user = await getSingleUser(id);
-    console.log(user);
+
     return res.status(200).send(user);
   } catch (error: any) {
     return res.status(400).json({ message: error.message });

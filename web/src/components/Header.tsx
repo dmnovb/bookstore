@@ -1,54 +1,14 @@
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure } from "@headlessui/react";
-import {
-  ArrowPathIcon,
-  Bars3Icon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-
-const products = [
-  {
-    name: "Analytics",
-    description: "Get a better understanding of your traffic",
-    href: "#",
-    icon: ChartPieIcon,
-  },
-  {
-    name: "Engagement",
-    description: "Speak directly to your customers",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "Security",
-    description: "Your customers’ data will be safe and secure",
-    href: "#",
-    icon: FingerPrintIcon,
-  },
-  {
-    name: "Integrations",
-    description: "Connect with third-party tools",
-    href: "#",
-    icon: SquaresPlusIcon,
-  },
-  {
-    name: "Automations",
-    description: "Build strategic funnels that will convert",
-    href: "#",
-    icon: ArrowPathIcon,
-  },
-];
+import { useAuth } from "./context/AuthContext";
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const { user } = useAuth();
   return (
     <header>
       <nav
@@ -88,11 +48,19 @@ export const Header = () => {
             Company
           </a>
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link to={"/login"} className="text-sm font-semibold leading-6 ">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </Link>
-        </div>
+        {!user ? (
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <Link to={"/login"} className="text-sm font-semibold leading-6 ">
+              Log in <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </div>
+        ) : (
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <Link to={"/login"} className="text-sm font-semibold leading-6 ">
+              Welcome, {user.username}
+            </Link>
+          </div>
+        )}
       </nav>
       <Dialog
         as="div"
@@ -136,18 +104,6 @@ export const Header = () => {
                           aria-hidden="true"
                         />
                       </Disclosure.Button>
-                      <Disclosure.Panel className="mt-2 space-y-2">
-                        {products.map((item) => (
-                          <Disclosure.Button
-                            key={item.name}
-                            as="a"
-                            href={item.href}
-                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                          >
-                            {item.name}
-                          </Disclosure.Button>
-                        ))}
-                      </Disclosure.Panel>
                     </>
                   )}
                 </Disclosure>

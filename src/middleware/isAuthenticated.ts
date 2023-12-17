@@ -9,8 +9,10 @@ export const isAuthenticated = async (
 ) => {
   try {
     const sessionToken = req.cookies["BOOKSTORE_COOKIE"];
-    console.log(sessionToken);
-    if (!sessionToken) return res.status(403);
+    console.log("REquest is here:", req);
+    console.log("token:", sessionToken);
+    if (sessionToken === undefined)
+      return res.status(403).json({ message: "undefined" });
 
     const existingUser = await getUserBySessionToken(sessionToken);
 

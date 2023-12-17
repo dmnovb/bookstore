@@ -10,7 +10,9 @@ export const useFetch = (url: string) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response: AxiosResponse<Book[]> = await axios.get(url);
+        const response: AxiosResponse<Book[]> = await axios.get(url, {
+          withCredentials: true,
+        });
         setApiData(response.data);
       } catch (error) {
         if (axios.isAxiosError(error)) {

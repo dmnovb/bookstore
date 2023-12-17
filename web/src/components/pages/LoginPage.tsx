@@ -2,10 +2,11 @@ import { useState } from "react";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,18 +17,21 @@ import { useForm } from "react-hook-form";
 import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
 import { EyeOff, Eye } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
-const formSchema = z.object({
+export const formSchema = z.object({
   email: z.string().email().min(3).max(50),
   password: z.string().min(5).max(50),
 });
 
 export const LoginPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(true);
-
+  const navigate = useNavigate();
   const handlePasswordReveal = () => {
     setIsPasswordVisible((prevState) => !prevState);
   };
+
+  const { user, login } = useAuth();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -37,9 +41,14 @@ export const LoginPage = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      await login(values);
+      navigate("/");
+    } catch (error: unknown) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="flex flex-col justify-center items-center mx-auto max-w-md p-4 mt-12">

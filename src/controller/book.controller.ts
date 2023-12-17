@@ -33,7 +33,7 @@ export const getBooksHandler = async (req: Request, res: Response) => {
 export const getSingleBookHandler = async (req: Request, res: Response) => {
   try {
     const book = await getSingleBook(req.params.bookId);
-    console.log(book);
+
     return res.status(200).send(book);
   } catch (error: any) {
     return res.status(404).json({ message: "Can't find book with this id." });

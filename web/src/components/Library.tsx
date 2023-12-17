@@ -36,7 +36,7 @@ export const Library = memo(() => {
   if (error) {
     return (
       <div>
-        <ErrorWrapper>Error: {error}</ErrorWrapper>;
+        <ErrorWrapper>Error: {error}</ErrorWrapper>
       </div>
     );
   }

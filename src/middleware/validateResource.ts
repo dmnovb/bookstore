@@ -12,7 +12,6 @@ export const validate =
       });
       next();
     } catch (error: any) {
-      console.log(req.body);
       return res.status(400).send(error.errors);
     }
   };

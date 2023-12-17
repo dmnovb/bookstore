@@ -4,6 +4,7 @@ import "./index.css";
 import { ThemeProvider } from "./utils/themeProvider.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { LoginPage, ErrorPage } from "./components/pages";
+import { AuthProvider } from "./components/context/AuthContext";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ThemeProvider defaultTheme="system" storageKey="ui-theme">
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </ThemeProvider>
 );
