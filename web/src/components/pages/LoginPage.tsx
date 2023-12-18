@@ -26,12 +26,12 @@ export const formSchema = z.object({
 
 export const LoginPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(true);
-  const navigate = useNavigate();
   const handlePasswordReveal = () => {
     setIsPasswordVisible((prevState) => !prevState);
   };
 
-  const { user, login } = useAuth();
+  const { login, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,7 +44,9 @@ export const LoginPage = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await login(values);
-      navigate("/");
+      if (isLoggedIn) {
+        navigate("/");
+      }
     } catch (error: unknown) {
       console.error(error);
     }

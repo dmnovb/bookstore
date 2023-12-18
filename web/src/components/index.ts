@@ -4,3 +4,4 @@ export * from "./Header";
 export * from "./Hero";
 export * from "./Library";
 export * from "./MaxWidthWrapper";
+export * from "./Dashboard";

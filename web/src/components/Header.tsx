@@ -56,7 +56,10 @@ export const Header = () => {
           </div>
         ) : (
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link to={"/login"} className="text-sm font-semibold leading-6 ">
+            <Link
+              to={"/dashboard"}
+              className="text-sm font-semibold leading-6 "
+            >
               Welcome, {user.username}
             </Link>
           </div>

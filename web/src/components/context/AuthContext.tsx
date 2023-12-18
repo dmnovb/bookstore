@@ -5,10 +5,12 @@ import {
   ReactNode,
   useEffect,
 } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import * as z from "zod";
 import { formSchema } from "../pages";
 import { omit } from "lodash";
+import { useToast } from "../ui/use-toast";
+import { useNavigate } from "react-router-dom";
 
 interface AuthContextProps {
   children: ReactNode;
@@ -20,6 +22,7 @@ type User = {
 };
 
 type AuthContextType = {
+  isLoggedIn: boolean;
   user: User | null;
   login: (credentials: z.infer<typeof formSchema>) => Promise<void>;
   logout: () => Promise<void>;
@@ -29,11 +32,15 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: AuthContextProps) => {
   const [user, setUser] = useState<User | null | any>(null);
+  const [isLoggedIn, setIsLoggenIn] = useState<boolean>(false);
+  const { toast } = useToast();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    if (user) {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
     }
   }, []);
 
@@ -48,11 +55,16 @@ export const AuthProvider = ({ children }: AuthContextProps) => {
       );
 
       const userData = omit(response.data as User, ["authentication", "_id"]);
-      console.log(userData);
       setUser(userData);
       localStorage.setItem("user", JSON.stringify(userData));
-    } catch (error: unknown) {
-      console.error(error);
+      setIsLoggenIn(true);
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.message;
+      console.log(errorMessage);
+      toast({
+        title: "Something went wrong",
+        description: errorMessage,
+      });
     }
   };
 
@@ -62,7 +74,7 @@ export const AuthProvider = ({ children }: AuthContextProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );
